@@ -22,7 +22,7 @@ install:
 
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%
-  - go build -ldflags "-s" -o _______.exe
+  - build.bat
 
 test_script:
   - _______.exe -version
