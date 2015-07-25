@@ -22,7 +22,7 @@ func main() {
 	flag.Parse()
 
 	if showVersion {
-		fmt.Println("timer version", version)
+		fmt.Println("template version", version)
 	} else {
 		// TODO
 	}
