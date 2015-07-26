@@ -15,7 +15,7 @@ func TestUsage(t *testing.T) {
 		main()
 		return
 	}
-	cmd := exec.Command(os.Args[0], "-test.run=TestUsage")
+	cmd := exec.Command(os.Args[0], "-test.run=TestUsage", "-help")
 	cmd.Env = append(os.Environ(), "BE_CRASHER=1")
 
 	// capture output of process execution
