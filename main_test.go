@@ -32,7 +32,7 @@ func TestUsage(t *testing.T) {
 	// now check that Usage message is displayed
 	captured, _ := ioutil.ReadAll(r)
 	actual := string(captured)
-	expected := "Usage:"
+	expected := "Usage of"
 
 	if !strings.Contains(actual, expected) {
 		t.Errorf("Expected: %s, but was: %s", expected, actual)
