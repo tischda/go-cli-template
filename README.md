@@ -1,4 +1,4 @@
-﻿# _____ [![Build status](https://ci.appveyor.com/api/projects/status/au8q12tabnam2t9a?svg=true)](https://ci.appveyor.com/project/tischda/timer)
+﻿# go-template [![Build status](https://ci.appveyor.com/api/projects/status/f0myotule8vqn4ai?svg=true)](https://ci.appveyor.com/project/tischda/go-template)
 
 Windows utility written in [Go](https://www.golang.org).
 
@@ -7,7 +7,7 @@ Windows utility written in [Go](https://www.golang.org).
 There are no dependencies.
 
 ~~~
-go get github.com/tischda/_______
+go get github.com/tischda/go-template
 ~~~
 
 ### Usage

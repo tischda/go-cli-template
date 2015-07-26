@@ -25,13 +25,13 @@ build_script:
   - build.bat
 
 test_script:
-  - _______.exe -version
+  - go-template.exe -version
   - go test -v -cover
   - go test -v | go2xunit -xunitnet > xunit-report.xml
 
 artifacts:
-  - path: ________.exe
-    name: ________
+  - path: go-template.exe
+    name: go-template
 
 deploy: off
 
