@@ -15,7 +15,7 @@ install:
   - go version
   - go env
   - mkdir %GOPATH%
-  - go get -u golang.org/x/tools/cmd/cover
+#  - go get -u golang.org/x/tools/cmd/cover
   - go get -u github.com/tischda/go2xunit
 
 build_script:
