@@ -10,8 +10,6 @@ environment:
 init:
   - SET PATH=%GOPATH%\bin;%PATH%
   - git config --global core.autocrlf input
-  - for /f "delims=" %%a in ('git describe --tags') do @set version=%%a
-  - set BUILD_INFO_VERSION=%version%
 
 install:
   - go version
@@ -21,6 +19,8 @@ install:
   - go get -u github.com/tischda/go2xunit
 
 build_script:
+  - for /f "delims=" %%a in ('git describe --tags') do @set version=%%a
+  - set BUILD_INFO_VERSION=%version%
   - go build -ldflags "-X main.version %version% -s"
 
 test_script:
