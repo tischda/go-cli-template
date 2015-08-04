@@ -15,12 +15,11 @@ install:
   - go version
   - go env
   - mkdir %GOPATH%
-#  - go get -u golang.org/x/tools/cmd/cover
   - go get -u github.com/tischda/go2xunit
-
-build_script:
   - for /f "delims=" %%a in ('git describe --tags') do @set version=%%a
   - set BUILD_INFO_VERSION=%version%
+
+build_script:
   - go build -ldflags "-X main.version %version% -s"
 
 test_script:
