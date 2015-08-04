@@ -1,4 +1,4 @@
-version: "1.0.1-{build}"
+#version: "1.0.1-{build}"
 
 branches:
   only:
@@ -22,7 +22,8 @@ install:
 
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%
-  - build.bat
+  - for /f "delims=" %a in ('git describe --tags') do @set version=%a
+  - go build -ldflags "-X main.version %version% -s"
 
 test_script:
   - go-template.exe -version
