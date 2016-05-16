@@ -1,5 +1,5 @@
 ## Changelog
  
-##### _________ 1.0.0 - (15 May 2015)
+##### PROJECT_NAME 1.0.0 - (16 May 2016)
 
     * First version

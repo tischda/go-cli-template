@@ -6,10 +6,10 @@ import (
 	"log"
 )
 
+const PROG_NAME string = "PROJECT_NAME"
+
 // http://technosophos.com/2014/06/11/compile-time-string-in-go.html
-// go build -ldflags "-x main.version $(git describe --tags)"
 var version string
-var name string = "go-template"
 
 // command line flags
 var showVersion bool
@@ -23,9 +23,9 @@ func main() {
 	flag.Parse()
 
 	if showVersion {
-		fmt.Printf("%s version %s\n", name, version)
+		fmt.Printf("%s version %s\n", PROG_NAME, version)
 	} else {
 		// TODO: implement your stuff here...
-		fmt.Println("go-template is doing nothing.")
+		fmt.Println(PROG_NAME, "is doing nothing.")
 	}
 }

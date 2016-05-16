@@ -1,23 +1,31 @@
-#
-# Makefile for GO utilites
-# 
-# Compiler: GO 1.5
-# 
+# ---------------------------------------------------------------------------
+# Makefile for GO utilities
+# ---------------------------------------------------------------------------
+
+PROJECT_DIR=${PWD##*/}
+BUILD_TAG=`git describe --tags 2>/dev/null`
+LDFLAGS=-ldflags "-X main.version=${BUILD_TAG} -s -w"
+
+init:
+        sed -i "s/PROJECT_NAME/${PROJECT_DIR}/g" CHANGELOG.md README.md main.go
 
 build: get
-	go build -ldflags "-X main.version=`git describe --tags` -s"
+	go build ${LDFLAGS}
 
 get:
 	go get
 
-test: fmt
+test: fmt vet
 	go test -v -cover
 
 fmt:
 	go fmt
 
+vet:
+	go vet -v
+
 install:
-	go install -a -ldflags "-X main.version=`git describe --tags` -s"
+	go install -a ${LDFLAGS} ./...
 
 clean:
 	go clean
