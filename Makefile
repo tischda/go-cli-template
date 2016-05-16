@@ -28,5 +28,9 @@ vet:
 install:
 	go install -a ${LDFLAGS} ./...
 
+
+dist: clean build
+	upx -9 ${PROJECT_DIR}.exe
+
 clean:
 	go clean

@@ -23,13 +23,13 @@ build_script:
   - go build -ldflags "-X main.version=%version% -s"
 
 test_script:
-  - go-template.exe -version
+  - go-archetype.exe -version
   - go test -v -cover
   - go test -v | go2xunit -xunitnet > xunit-report.xml
 
 artifacts:
-  - path: go-template.exe
-    name: go-template
+  - path: go-archetype.exe
+    name: go-archetype
 
 deploy: off
 
