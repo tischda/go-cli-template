@@ -2,12 +2,13 @@
 # Makefile for GO utilities
 # ---------------------------------------------------------------------------
 
-PROJECT_DIR=${PWD##*/}
+PROJECT_DIR=$(notdir $(shell pwd))
+
 BUILD_TAG=`git describe --tags 2>/dev/null`
 LDFLAGS=-ldflags "-X main.version=${BUILD_TAG} -s -w"
 
 init:
-        sed -i "s/PROJECT_NAME/${PROJECT_DIR}/g" CHANGELOG.md README.md main.go
+	sed -i "s/PROJECT_NAME/${PROJECT_DIR}/g" CHANGELOG.md README.md main.go
 
 build: get
 	go build ${LDFLAGS}
