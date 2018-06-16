@@ -5,14 +5,14 @@
 PROJECT_DIR=$(notdir $(shell pwd))
 
 BUILD_TAG=`git describe --tags 2>/dev/null`
-LDFLAGS=-ldflags "-X main.version=${BUILD_TAG} -s -w"
+LDFLAGS=-ldflags "all=-X main.version=${BUILD_TAG} -s -w"
 
 all: get build
 
 init:
 	sed -i "s/PROJECT_NAME/${PROJECT_DIR}/g" CHANGELOG.md README.md main.go
 
-build: get
+build:
 	go build ${LDFLAGS}
 
 get:
