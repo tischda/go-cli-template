@@ -5,7 +5,7 @@
 REPOSITORY=github.com/tischda
 PROJECT_DIR=$(notdir $(shell pwd))
 
-BUILD_TAG=$(shell git describe --tags)
+BUILD_TAG=$(shell git describe --tags 2>/dev/null || echo undefined)
 LDFLAGS=-ldflags=all="-X main.version=${BUILD_TAG} -s -w"
 
 all: build
@@ -15,6 +15,7 @@ init:
 	go mod init ${REPOSITORY}/${PROJECT_DIR}
 	go mod tidy
 	go mod vendor
+	git init
 
 build:
 	go build ${LDFLAGS}

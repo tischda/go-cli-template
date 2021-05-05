@@ -24,6 +24,6 @@ func main() {
 		fmt.Printf("PROJECT_NAME version %s\n", version)
 	} else {
 		// TODO: implement your stuff here...
-		fmt.Println(PROJECT_NAME, "is doing nothing.")
+		fmt.Println("PROJECT_NAME is doing nothing.")
 	}
 }
