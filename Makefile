@@ -1,35 +1,30 @@
 # ---------------------------------------------------------------------------
-# Makefile for GO utilities
+# Makefile for go CLI utilities
 # ---------------------------------------------------------------------------
 
+REPOSITORY=github.com/tischda
 PROJECT_DIR=$(notdir $(shell pwd))
 
-BUILD_TAG=`git describe --tags 2>/dev/null`
-LDFLAGS=-ldflags "all=-X main.version=${BUILD_TAG} -s -w"
+BUILD_TAG=$(shell git describe --tags)
+LDFLAGS=-ldflags=all="-X main.version=${BUILD_TAG} -s -w"
 
-all: get build
+all: build
 
 init:
-	sed -i "s/PROJECT_NAME/${PROJECT_DIR}/g" CHANGELOG.md README.md main.go
+	sed -i "s/PROJECT_NAME/${PROJECT_DIR}/g" CHANGELOG.md README.md appveyor.yml .travis.yml main.go
+	go mod init ${REPOSITORY}/${PROJECT_DIR}
+	go mod tidy
+	go mod vendor
 
 build:
 	go build ${LDFLAGS}
 
-get:
-	go get
-
-test: fmt vet
+test:
 	go test -v -cover
 
 cover:
 	go test -coverprofile=coverage.out
 	go tool cover -html=coverage.out
-
-fmt:
-	go fmt
-
-vet:
-	go vet -v
 
 install:
 	go install ${LDFLAGS} ./...

@@ -4,10 +4,8 @@ Utility written in [Go](https://www.golang.org).
 
 ### Install
 
-There are no dependencies.
-
 ~~~
-go get github.com/tischda/PROJECT_NAME
+go install github.com/tischda/PROJECT_NAME@latest
 ~~~
 
 ### Usage
