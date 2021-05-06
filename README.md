@@ -18,14 +18,13 @@ wget --no-check-certificate https://github.com/tischda/go-archetype/archive/refs
 unzip -j -d %PROJECT% master.zip
 rm master.zip
 cd %PROJECT%
-make init
+make -f Makefile.init
 ~~~
 
 ### Clean-up
 
-Remove the `init:` block from the `Makefile`:
 ~~~
-sed -i '/#--start-init--#/,/#--end-init--#/d' Makefile
+rm Makefile.init
 ~~~
 
 Start coding.

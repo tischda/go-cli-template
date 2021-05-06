@@ -1,0 +1,14 @@
+# ---------------------------------------------------------------------------
+# Makefile for CLI utilities template
+# ---------------------------------------------------------------------------
+
+PROJECT_DIR=$(notdir $(shell pwd))
+
+go.mod:
+	sed -i "s/##PROJECT_NAME##/${PROJECT_DIR}/g" Makefile appveyor.yml .travis.yml main.go README.tpl CHANGELOG.md
+	sed -i "s|##REPOSITORY##|${REPOSITORY}|g" README.tpl
+	mv README.tpl README.md
+	go mod init ${REPOSITORY}/${PROJECT_DIR}
+	go mod tidy
+	go mod vendor
+	git init
