@@ -4,5 +4,5 @@ go:
 script:
     - make build
     - make test
-    - ./PROJECT_NAME -version
+    - ./##PROJECT_NAME## -version
 

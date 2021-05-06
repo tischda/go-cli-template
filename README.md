@@ -1,19 +1,31 @@
-﻿# PROJECT_NAME [![Build status](https://ci.appveyor.com/api/projects/status/apwc7sg9sak0syjx?svg=true)](https://ci.appveyor.com/project/tischda/go-archetype)
+﻿# go-archetype
 
-Utility written in [Go](https://www.golang.org).
+Template for [Go](https://www.golang.org) CLI projects.
 
-### Install
-
-~~~
-go install github.com/tischda/PROJECT_NAME@latest
-~~~
+Convention: project directory = project name
 
 ### Usage
 
+Set project variables for configuration:
 ~~~
+set PROJECT=YOUR_PROJECT_NAME
+set REPOSITORY=github.com/tischda
 ~~~
 
-Example:
+Download and configure:
+~~~
+wget --no-check-certificate https://github.com/tischda/go-archetype/archive/refs/heads/master.zip
+unzip -j -d %PROJECT% master.zip
+rm master.zip
+cd %PROJECT%
+make init
+~~~
 
+### Clean-up
+
+Remove the `init:` block from the `Makefile`:
 ~~~
+sed -i '/#--start-init--#/,/#--end-init--#/d' Makefile
 ~~~
+
+Start coding.
