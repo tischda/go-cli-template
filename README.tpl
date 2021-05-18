@@ -1,11 +1,11 @@
-﻿# ##PROJECT_NAME## [![Build status](https://ci.appveyor.com/api/projects/status/KEY?svg=true)](https://ci.appveyor.com/project/USER/##PROJECT_NAME##)
+﻿# ##PROJECT_NAME## [![Test](https://##REPOSITORY##/actions/workflows/test.yml/badge.svg)](https://##REPOSITORY##/actions/workflows/test.yml)
 
 Utility written in [Go](https://www.golang.org).
 
 ### Install
 
 ~~~
-go install github.com/tischda/##PROJECT_NAME##@latest
+go install ##REPOSITORY##@latest
 ~~~
 
 ### Usage

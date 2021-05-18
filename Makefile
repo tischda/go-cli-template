@@ -20,8 +20,14 @@ cover:
 install:
 	go install ${LDFLAGS} ./...
 
+snapshot:
+	goreleaser --snapshot --skip-publish --rm-dist
+
+release: 
+	goreleaser release --rm-dist
+
 dist: clean build
-	upx -9 ##PROJECT_NAME##.exe
+	upx -9 *.exe
 
 clean:
 	go clean

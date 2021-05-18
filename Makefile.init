@@ -1,14 +1,25 @@
 # ---------------------------------------------------------------------------
 # Makefile for CLI utilities template
+#
+# Convention: project directory = YOUR_PROJECT_NAME
+# You must define REPOSITORY, for example:
+#    export REPOSITORY=github.com/tischda/YOUR_PROJECT_NAME
 # ---------------------------------------------------------------------------
 
 PROJECT_DIR=$(notdir $(shell pwd))
 
 go.mod:
-	sed -i "s/##PROJECT_NAME##/${PROJECT_DIR}/g" Makefile appveyor.yml .travis.yml main.go README.tpl CHANGELOG.md
+ifeq ("${REPOSITORY}X", "X")
+	@echo "Please set REPOSITORY variable to your git repository."
+	@echo "For example:"
+	@echo "    export REPOSITORY=github.com/tischda/${PROJECT_DIR}"
+else
 	sed -i "s|##REPOSITORY##|${REPOSITORY}|g" README.tpl
+	sed -i "s/##PROJECT_NAME##/${PROJECT_DIR}/g" main.go README.tpl CHANGELOG.md Makefile appveyor.yml 
 	mv README.tpl README.md
-	go mod init ${REPOSITORY}/${PROJECT_DIR}
-	go mod tidy
-	go mod vendor
+	go mod init ${REPOSITORY}
 	git init
+	git add .
+	git ci -m "first commit"
+	rm Makefile.init
+endif

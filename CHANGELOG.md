@@ -1,5 +1,10 @@
-## Changelog
- 
-##### ##PROJECT_NAME## 1.0.0 - (6 May 2021)
+# Changelog
+
+## ##PROJECT_NAME## 1.0.0 - (18 May 2021)
+
+### Added
 
     * First version
+
+### Changed
+### Fixed

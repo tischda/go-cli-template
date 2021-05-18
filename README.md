@@ -2,14 +2,14 @@
 
 Template for [Go](https://www.golang.org) CLI projects.
 
-Convention: project directory = project name
+Convention: project directory = YOUR_PROJECT_NAME
 
 ### Usage
 
-Set project variables for configuration:
+Set environment variables for configuration:
 ~~~
 set PROJECT=YOUR_PROJECT_NAME
-set REPOSITORY=github.com/tischda
+set REPOSITORY=github.com/tischda/YOUR_PROJECT_NAME
 ~~~
 
 Download and configure:
@@ -28,3 +28,10 @@ rm Makefile.init
 ~~~
 
 Start coding.
+
+### Adding modules
+
+~~~
+go mod tidy
+go mod vendor
+~~~
