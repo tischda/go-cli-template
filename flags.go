@@ -3,15 +3,12 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
 	"os"
 )
 
 var showVersion bool
 
 func parseFlags() {
-	log.SetFlags(0)
-
 	flag.BoolVar(&showVersion, "version", false, "print version and exit")
 
 	flag.Usage = func() {
