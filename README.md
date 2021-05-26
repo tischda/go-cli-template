@@ -2,28 +2,31 @@
 
 Template for [Go](https://www.golang.org) CLI projects.
 
-### Usage
+## Usage
 
+Name your project:
 ~~~
 set PROJECT=my-project
-set MODULE=github.com/tischda/%PROJECT%
+~~~
 
+Create repository and project folder with [Github CLI](https://github.com/cli/cli):
+~~~
 gh repo create %PROJECT% --confirm --public --template github.com/tischda/go-cli-template
 cd %PROJECT%
-go mod init %MODULE%
+go mod init github.com/tischda/%PROJECT%
 go generate template.go
 ~~~
 
 Start coding.
 
-### Add modules
+## Add modules
 
 ~~~
 go mod tidy
 go mod vendor
 ~~~
 
-### Release
+## Release
 
 ~~~
 make test
