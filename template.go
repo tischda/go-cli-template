@@ -1,3 +1,11 @@
+// +build ignore
+
+//go:generate echo Setting up your files...
+//go:generate go get golang.org/x/mod/modfile
+//go:generate go run template.go
+//go:generate rm template.go
+//go:generate go mod tidy
+
 package main
 
 import (
@@ -10,9 +18,6 @@ import (
 	modfile "golang.org/x/mod/modfile"
 )
 
-//go:generate echo Setting up your files...
-//go:generate go run generate.go
-
 func main() {
 
 	goModBytes, err := ioutil.ReadFile("go.mod")
@@ -22,7 +27,7 @@ func main() {
 	moduleName := modfile.ModulePath(goModBytes)
 	projectName := filepath.Base(moduleName)
 
-	f, err := os.Create("README.generated")
+	f, err := os.Create("README.md")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -59,5 +64,3 @@ Example:
 
 ~~~
 `))
-
-//go:generate rm generate.go

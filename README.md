@@ -11,7 +11,7 @@ set MODULE=github.com/tischda/%PROJECT%
 gh repo create %PROJECT% --confirm --public --template github.com/tischda/go-cli-template
 cd %PROJECT%
 go mod init %MODULE%
-go generate
+go generate template.go
 ~~~
 
 Start coding.

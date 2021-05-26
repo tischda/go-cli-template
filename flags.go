@@ -12,7 +12,7 @@ func parseFlags() {
 	flag.BoolVar(&showVersion, "version", false, "print version and exit")
 
 	flag.Usage = func() {
-		fmt.Fprintf(flag.CommandLine.Output(), usage, binary)
+		fmt.Fprintf(flag.CommandLine.Output(), usage, name, name)
 		flag.PrintDefaults()
 	}
 	flag.Parse()
@@ -21,7 +21,7 @@ func parseFlags() {
 		flag.Usage()
 		os.Exit(0)
 	} else if showVersion || flag.Arg(0) == "version" {
-		fmt.Printf("%s version %s\n", binary, version)
+		fmt.Printf("%s version %s\n", name, version)
 		os.Exit(0)
 	}
 }
