@@ -21,17 +21,18 @@ cd %PROJECT%
 make -f Makefile.init
 ~~~
 
-### Clean-up
-
-~~~
-rm Makefile.init
-~~~
-
 Start coding.
 
-### Adding modules
+### Add modules
 
 ~~~
 go mod tidy
 go mod vendor
+~~~
+
+### Release
+
+~~~
+make test
+make release
 ~~~
