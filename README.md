@@ -1,24 +1,17 @@
-﻿# go-archetype
+﻿# go-cli-template
 
 Template for [Go](https://www.golang.org) CLI projects.
 
-Convention: project directory = YOUR_PROJECT_NAME
-
 ### Usage
 
-Set environment variables for configuration:
 ~~~
-set PROJECT=YOUR_PROJECT_NAME
-set REPOSITORY=github.com/tischda/YOUR_PROJECT_NAME
-~~~
+set PROJECT=my-project
+set MODULE=github.com/tischda/%PROJECT%
 
-Download and configure:
-~~~
-wget --no-check-certificate https://github.com/tischda/go-archetype/archive/refs/heads/master.zip
-unzip -j -d %PROJECT% master.zip
-rm master.zip
+gh repo create %PROJECT% --confirm --public --template github.com/tischda/go-cli-template
 cd %PROJECT%
-make -f Makefile.init
+go mod init %MODULE%
+go generate
 ~~~
 
 Start coding.
