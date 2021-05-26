@@ -1,10 +1,20 @@
-# Changelog
+# Change Log
+All notable changes to this project will be documented in this file.
 
-## v1.0.0 - (18 May 2021)
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## [Unreleased] - yyyy-mm-dd
+
+Here we write upgrading notes for brands. It's a team effort to make them as
+straightforward as possible.
 
 ### Added
-
-    * First version
+- [PROJECTNAME-XXXX](http://tickets.projectname.com/browse/PROJECTNAME-XXXX)
+  MINOR Ticket title goes here.
+- [PROJECTNAME-YYYY](http://tickets.projectname.com/browse/PROJECTNAME-YYYY)
+  PATCH Ticket title goes here.
 
 ### Changed
+
 ### Fixed
