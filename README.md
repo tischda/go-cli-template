@@ -1,8 +1,8 @@
 ﻿# go-cli-template
 
-Template for [Go](https://www.golang.org) CLI projects.
+Template for small [Go](https://www.golang.org) CLI projects.
 
-## Usage
+## Get started
 
 Name your project:
 ~~~
@@ -26,7 +26,7 @@ go mod tidy
 go mod vendor
 ~~~
 
-## Release
+## Release project
 
 ~~~
 make test
