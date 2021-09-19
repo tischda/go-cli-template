@@ -30,5 +30,8 @@ go mod vendor
 
 ~~~
 make test
+
+git tag -a v1.0.0 -m "First release"
+git push origin v1.0.0
 make release
 ~~~
