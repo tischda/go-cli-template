@@ -6,6 +6,7 @@ Template for small [Go](https://www.golang.org) CLI projects.
 
 Name your project:
 ~~~
+set OWNER=owner
 set PROJECT=my-project
 ~~~
 
@@ -13,7 +14,8 @@ Create repository and project folder with [Github CLI](https://github.com/cli/cl
 ~~~
 gh repo create %PROJECT% --confirm --public --template github.com/tischda/go-cli-template
 cd %PROJECT%
-go mod init github.com/tischda/%PROJECT%
+git remote set-url origin git@github.com:%OWNER%/%PROJECT%.git
+go mod init github.com/%OWNER%/%PROJECT%
 go generate template.go
 ~~~
 
