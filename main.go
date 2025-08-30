@@ -28,9 +28,9 @@ Description here.
 
 OPTIONS:
 
-  -h, -help
+  -h, --help
         display this help message
-  -v, -version
+  -v, --version
         print version and exit
 
 EXAMPLES:`)
