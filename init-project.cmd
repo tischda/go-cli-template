@@ -12,5 +12,6 @@ go generate template.go
 REM -- Clean up
 REM del /q template.go
 REM del /q init-project.cmd
+REM del /q README.md.tpl
 
 endlocal
