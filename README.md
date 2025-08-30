@@ -6,26 +6,18 @@ Template for small [Go](https://www.golang.org) CLI projects.
 
 Name your project:
 ~~~
-set OWNER=owner
 set PROJECT=my-project
 ~~~
 
 Create repository and project folder with [Github CLI](https://github.com/cli/cli):
 ~~~
-gh repo create %PROJECT% --public --clone --template github.com/tischda/go-cli-template
+gh config set git_protocol ssh
+cd %PROJECT% || gh repo create %PROJECT% --public --clone --template github.com/tischda/go-cli-template
 cd %PROJECT%
-go mod init github.com/%OWNER%/%PROJECT%
-go generate template.go
+init-project.cmd
 ~~~
 
 Start coding.
-
-## Add modules
-
-~~~
-go mod tidy
-go mod vendor
-~~~
 
 ## Release project
 

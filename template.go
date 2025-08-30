@@ -2,69 +2,49 @@
 // +build ignore
 
 //go:generate echo Setting up your files...
-//go:generate go get golang.org/x/mod/modfile
-//go:generate go run template.go
-//go:generate rm template.go
-//go:generate go mod tidy
+//go:generate go mod init github.com/tischda/detach
+//go:generate go run template.go --repo=github.com/tischda/detach
 
 package main
 
 import (
+	"flag"
+	"fmt"
 	"html/template"
 	"log"
 	"os"
 	"path/filepath"
-
-	modfile "golang.org/x/mod/modfile"
 )
 
 func main() {
+	modulePath := flag.String("repo", "default", "Repo to use in generation")
+	flag.Parse()
 
-	goModBytes, err := os.ReadFile("go.mod")
+	projectName := filepath.Base(*modulePath)
+
+	// read template for README.md
+	t, err := template.ParseFiles("README.md.tpl")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Failed to parse template file: %v", err)
 	}
-	moduleName := modfile.ModulePath(goModBytes)
-	projectName := filepath.Base(moduleName)
 
+	// open target output file
 	f, err := os.Create("README.md")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer f.Close()
 
-	readmeTemplate.Execute(f, struct {
+	// execute template and write to file
+	fmt.Printf("Generating README.md")
+	t.Execute(f, struct {
 		Project    string
 		Repository string
 	}{
 		Project:    projectName,
-		Repository: moduleName,
+		Repository: *modulePath,
 	})
+	if err != nil {
+		log.Fatalf("Failed to execute template: %v", err)
+	}
 }
-
-var readmeTemplate = template.Must(template.New("").Parse(`
-![Build Status](https://{{ .Repository }}/actions/workflows/build.yml/badge.svg)
-[![Go Report Card](https://goreportcard.com/badge/{{ .Repository }})](https://goreportcard.com/report/{{ .Repository }})
-
-# {{ .Project }}
-
-Description here.
-
-### Install
-
-~~~
-go install {{ .Repository }}@latest
-~~~
-
-### Usage
-
-~~~
-Output of {{ .Project }} --help command here.
-~~~
-
-### Example
-
-~~~
-
-~~~
-`))
