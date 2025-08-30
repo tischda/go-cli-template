@@ -2,8 +2,8 @@
 // +build ignore
 
 //go:generate echo Setting up your files...
-//go:generate go mod init github.com/tischda/detach
-//go:generate go run template.go --repo=github.com/tischda/detach
+//go:generate go mod init {{ .GitHubRepository }}
+//go:generate go run template.go --repo={{ .GitHubRepository }}
 
 package main
 
