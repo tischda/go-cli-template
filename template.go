@@ -24,10 +24,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	moduleName, err := modfile.ModulePath(goModBytes)
-	if err != nil {
-		log.Fatal(err)
-	}
+	moduleName := modfile.ModulePath(goModBytes)
 	projectName := filepath.Base(moduleName)
 
 	f, err := os.Create("README.md")
@@ -45,7 +42,11 @@ func main() {
 	})
 }
 
-var readmeTemplate = template.Must(template.New("").Parse(`# {{ .Project }} [![Test](https://{{ .Repository }}/actions/workflows/test.yml/badge.svg)](https://{{ .Repository }}/actions/workflows/test.yml)
+var readmeTemplate = template.Must(template.New("").Parse(`
+![Build Status](https://{{ .Repository }}/actions/workflows/build.yml/badge.svg)
+[![Go Report Card](https://goreportcard.com/badge/{{ .Repository }})](https://goreportcard.com/report/{{ .Repository }})
+
+# {{ .Project }}
 
 Description here.
 
@@ -58,10 +59,10 @@ go install {{ .Repository }}@latest
 ### Usage
 
 ~~~
-
+Output of {{ .Project }} --help command here.
 ~~~
 
-Example:
+### Example
 
 ~~~
 
