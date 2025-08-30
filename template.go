@@ -1,3 +1,4 @@
+//go:build ignore
 // +build ignore
 
 //go:generate echo Setting up your files...
@@ -10,7 +11,6 @@ package main
 
 import (
 	"html/template"
-	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -20,11 +20,14 @@ import (
 
 func main() {
 
-	goModBytes, err := ioutil.ReadFile("go.mod")
+	goModBytes, err := os.ReadFile("go.mod")
 	if err != nil {
 		log.Fatal(err)
 	}
-	moduleName := modfile.ModulePath(goModBytes)
+	moduleName, err := modfile.ModulePath(goModBytes)
+	if err != nil {
+		log.Fatal(err)
+	}
 	projectName := filepath.Base(moduleName)
 
 	f, err := os.Create("README.md")
@@ -44,7 +47,7 @@ func main() {
 
 var readmeTemplate = template.Must(template.New("").Parse(`# {{ .Project }} [![Test](https://{{ .Repository }}/actions/workflows/test.yml/badge.svg)](https://{{ .Repository }}/actions/workflows/test.yml)
 
-Utility written in [Go](https://www.golang.org).
+Description here.
 
 ### Install
 
