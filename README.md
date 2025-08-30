@@ -12,8 +12,7 @@ set PROJECT=my-project
 
 Create repository and project folder with [Github CLI](https://github.com/cli/cli):
 ~~~
-gh repo create %PROJECT% --public --template github.com/tischda/go-cli-template
-git clone git@github.com:%OWNER%/%PROJECT%.git
+gh repo create %PROJECT% --public --clone --template github.com/tischda/go-cli-template
 cd %PROJECT%
 go mod init github.com/%OWNER%/%PROJECT%
 go generate template.go
