@@ -1,4 +1,5 @@
 [![Build Status](https://{{ .Repository }}/actions/workflows/build.yml/badge.svg)](https://{{ .Repository }}/actions/workflows/build.yml)
+[![Test Status](https://{{ .Repository }}/actions/workflows/test.yml/badge.svg)](https://{{ .Repository }}/actions/workflows/test.yml)
 [![Go Report Card](https://goreportcard.com/badge/{{ .Repository }})](https://goreportcard.com/report/{{ .Repository }})
 
 # {{ .Project }}
