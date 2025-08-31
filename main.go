@@ -6,11 +6,13 @@ import (
 	"os"
 )
 
-// Set at build time via -ldflags "-X main.AppName=... -X main.AppVersion=... -X main.BuildDate=... -X main.GitCommit=..."
-var AppName string
-var AppVersion string
-var BuildDate string
-var GitCommit string
+// https://goreleaser.com/cookbooks/using-main.version/
+var (
+	name    string
+	version string
+	date    string
+	commit  string
+)
 
 var flagHelp = flag.Bool("help", false, "displays this help message")
 var flagVersion = flag.Bool("version", false, "print version and exit")
@@ -22,7 +24,7 @@ func init() {
 
 func main() {
 	flag.Usage = func() {
-		fmt.Fprintln(os.Stderr, "Usage: "+AppName+` [ version | --version | --help ]
+		fmt.Fprintln(os.Stderr, "Usage: "+name+` cmdPath cmdArgs... | [ version | --version | --help ]
 
 Description here.
 
@@ -35,13 +37,13 @@ OPTIONS:
 
 EXAMPLES:`)
 
-		fmt.Fprintln(os.Stderr, "\n  $ "+AppName+`
+		fmt.Fprintln(os.Stderr, "\n  $ "+name+`
     Example output here.`)
 	}
 	flag.Parse()
 
 	if flag.Arg(0) == "version" || *flagVersion {
-		fmt.Printf("%s %s, built on %s (commit: %s)\n", AppName, AppVersion, BuildDate, GitCommit)
+		fmt.Printf("%s %s, built on %s (commit: %s)\n", name, version, date, commit)
 		return
 	}
 
