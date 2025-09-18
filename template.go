@@ -21,6 +21,7 @@ func main() {
 	flag.Parse()
 
 	projectName := filepath.Base(*modulePath)
+	projectOwner := filepath.Dir(*modulePath)
 
 	// read template for README.md
 	t, err := template.ParseFiles("README.md.tpl")
@@ -39,9 +40,11 @@ func main() {
 	fmt.Printf("Generating README.md")
 	t.Execute(f, struct {
 		Project    string
+		Owner      string
 		Repository string
 	}{
 		Project:    projectName,
+		Owner:      projectOwner,
 		Repository: *modulePath,
 	})
 	if err != nil {

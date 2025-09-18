@@ -1,6 +1,8 @@
 [![Build Status](https://{{ .Repository }}/actions/workflows/build.yml/badge.svg)](https://{{ .Repository }}/actions/workflows/build.yml)
 [![Test Status](https://{{ .Repository }}/actions/workflows/test.yml/badge.svg)](https://{{ .Repository }}/actions/workflows/test.yml)
+[![Coverage Status](https://coveralls.io/repos/{{ .Owner }}/{{ .Project }}/badge.svg)](https://coveralls.io/r/{{ .Owner }}/{{ .Project }})
 [![Go Report Card](https://goreportcard.com/badge/{{ .Repository }})](https://goreportcard.com/report/{{ .Repository }})
+
 
 # {{ .Project }}
 
