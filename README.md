@@ -37,7 +37,6 @@ go generate unix.go
 ~~~
 
 
-
 ## Release project
 
 ~~~
@@ -47,3 +46,8 @@ git tag -a v1.0.0 -m "First release"
 git push origin v1.0.0
 make release
 ~~~
+
+
+## Caveats
+
+* github workflows and goreleaser must be adapted for Unix

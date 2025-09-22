@@ -6,6 +6,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"html/template"
@@ -43,6 +44,9 @@ func main() {
 		log.Fatal(err)
 	}
 	if err := writeVersioninfo(cfg); err != nil {
+		log.Fatal(err)
+	}
+	if err := cleanUp(); err != nil {
 		log.Fatal(err)
 	}
 }
@@ -84,4 +88,21 @@ func processTemplate(outPath string, data any) error {
 	defer f.Close()
 	fmt.Printf("Generating %s\n", outPath)
 	return t.Execute(f, data)
+}
+
+func cleanUp() error {
+	files := []string{
+		"unix.go",
+		"windows.go",
+		"template.go",
+		"README.md.tpl",
+		"versioninfo.json.tpl",
+	}
+	for _, f := range files {
+		fmt.Printf("Removing %s\n", f)
+		if err := os.Remove(f); err != nil && !errors.Is(err, os.ErrNotExist) {
+			return err
+		}
+	}
+	return nil
 }
