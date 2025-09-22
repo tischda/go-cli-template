@@ -2,8 +2,8 @@
 // +build ignore
 
 //go:generate echo Setting up your files...
-//go:generate go mod init {{ .GitHubRepository }}
-//go:generate go run template.go --repo={{ .GitHubRepository }}
+//go:generate cmd /c go mod init github.com/%OWNER%/%PROJECT%
+//go:generate cmd /c go run template.go --owner=%OWNER% --project=%PROJECT% --copyright=%COPYRIGHT%
 
 package main
 
@@ -13,41 +13,90 @@ import (
 	"html/template"
 	"log"
 	"os"
-	"path/filepath"
 )
 
+// flags
+type Config struct {
+	owner     string
+	project   string
+	copyright string
+}
+
+func initFlags() *Config {
+	cfg := &Config{}
+	flag.StringVar(&cfg.owner, "owner", "", "project owner (github user or org)")
+	flag.StringVar(&cfg.project, "project", "", "project name")
+	flag.StringVar(&cfg.copyright, "copyright", "2025", "copyright notice")
+	return cfg
+}
+
 func main() {
-	modulePath := flag.String("repo", "default", "Repo to use in generation")
+	log.SetFlags(0)
+	cfg := initFlags()
 	flag.Parse()
 
-	projectName := filepath.Base(*modulePath)
-	projectOwner := filepath.Dir(*modulePath)
+	if cfg.owner == "" || cfg.project == "" {
+		flag.Usage()
+		log.Fatal("Missing required flags: --owner and --project")
+	}
+	if err := writeReadme(cfg); err != nil {
+		log.Fatal(err)
+	}
+	if err := writeVersioninfo(cfg); err != nil {
+		log.Fatal(err)
+	}
+}
 
-	// read template for README.md
+func writeReadme(cfg *Config) error {
 	t, err := template.ParseFiles("README.md.tpl")
 	if err != nil {
-		log.Fatalf("Failed to parse template file: %v", err)
+		return err
 	}
 
-	// open target output file
 	f, err := os.Create("README.md")
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	defer f.Close()
 
-	// execute template and write to file
 	fmt.Printf("Generating README.md")
-	t.Execute(f, struct {
+	err = t.Execute(f, struct {
 		Project    string
 		Owner      string
 		Repository string
 	}{
-		Project:    projectName,
-		Owner:      projectOwner,
-		Repository: *modulePath,
+		Project:    cfg.project,
+		Owner:      cfg.owner,
+		Repository: "github.com/" + cfg.owner + "/" + cfg.project,
 	})
 	if err != nil {
-		log.Fatalf("Failed to execute template: %v", err)
+		return err
 	}
+	return nil
+}
+
+func writeVersioninfo(cfg *Config) error {
+	t, err := template.ParseFiles("versioninfo.json.tpl")
+	if err != nil {
+		return err
+	}
+
+	f, err := os.Create("versioninfo.json")
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	fmt.Printf("Generating versioninfo.json")
+	err = t.Execute(f, struct {
+		Project   string
+		Copyright string
+	}{
+		Project:   cfg.project,
+		Copyright: cfg.copyright,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
 }
