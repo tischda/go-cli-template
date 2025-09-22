@@ -1,13 +1,13 @@
 ﻿# go-cli-template
 
-Template for small Windows CLI projects hosted on github.com.
+Template for small golang CLI projects hosted on github.com.
 
-## Get started
+## Get started (Windows)
 
 Name your project, for example:
 ~~~
-set OWNER=tischda
 set PROJECT=test01
+set OWNER=tischda
 set COPYRIGHT=© 2025 Daniel TISCHER
 ~~~
 
@@ -16,10 +16,27 @@ Create repository and project folder with [Github CLI](https://github.com/cli/cl
 gh config set git_protocol ssh
 gh repo create %PROJECT% --public --clone --template github.com/tischda/go-cli-template
 cd %PROJECT%
-go generate template.go
+go generate windows.go
 ~~~
 
-Start coding.
+
+### Get started (Unix)
+
+~~~
+PROJECT=test01
+OWNER=tischda
+COPYRIGHT="© 2025 Daniel TISCHER"
+~~~
+
+Create repository and project folder:
+~~~
+gh config set git_protocol ssh
+gh repo create $PROJECT --public --clone --template github.com/tischda/go-cli-template
+cd $PROJECT
+go generate unix.go
+~~~
+
+
 
 ## Release project
 

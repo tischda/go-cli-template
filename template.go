@@ -2,8 +2,6 @@
 // +build ignore
 
 //go:generate echo Setting up your files...
-//go:generate cmd /c go mod init github.com/%OWNER%/%PROJECT%
-//go:generate cmd /c go run template.go --owner=%OWNER% --project=%PROJECT% --copyright=%COPYRIGHT%
 
 package main
 
@@ -14,6 +12,8 @@ import (
 	"log"
 	"os"
 )
+
+const HOST = "github.com"
 
 // flags
 type Config struct {
@@ -26,7 +26,7 @@ func initFlags() *Config {
 	cfg := &Config{}
 	flag.StringVar(&cfg.owner, "owner", "", "project owner (github user or org)")
 	flag.StringVar(&cfg.project, "project", "", "project name")
-	flag.StringVar(&cfg.copyright, "copyright", "2025", "copyright notice")
+	flag.StringVar(&cfg.copyright, "copyright", "", "copyright notice")
 	return cfg
 }
 
@@ -35,9 +35,9 @@ func main() {
 	cfg := initFlags()
 	flag.Parse()
 
-	if cfg.owner == "" || cfg.project == "" {
+	if cfg.owner == "" || cfg.project == "" || cfg.copyright == "" {
 		flag.Usage()
-		log.Fatal("Missing required flags: --owner and --project")
+		log.Fatal("Missing required flags: --owner, --project or --copyright")
 	}
 	if err := writeReadme(cfg); err != nil {
 		log.Fatal(err)
@@ -48,55 +48,40 @@ func main() {
 }
 
 func writeReadme(cfg *Config) error {
-	t, err := template.ParseFiles("README.md.tpl")
-	if err != nil {
-		return err
-	}
-
-	f, err := os.Create("README.md")
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-
-	fmt.Printf("Generating README.md")
-	err = t.Execute(f, struct {
+	data := struct {
 		Project    string
 		Owner      string
 		Repository string
 	}{
 		Project:    cfg.project,
 		Owner:      cfg.owner,
-		Repository: "github.com/" + cfg.owner + "/" + cfg.project,
-	})
-	if err != nil {
-		return err
+		Repository: HOST + "/" + cfg.owner + "/" + cfg.project,
 	}
-	return nil
+	return processTemplate("README.md", data)
 }
 
 func writeVersioninfo(cfg *Config) error {
-	t, err := template.ParseFiles("versioninfo.json.tpl")
-	if err != nil {
-		return err
-	}
-
-	f, err := os.Create("versioninfo.json")
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-
-	fmt.Printf("Generating versioninfo.json")
-	err = t.Execute(f, struct {
+	data := struct {
 		Project   string
 		Copyright string
 	}{
 		Project:   cfg.project,
 		Copyright: cfg.copyright,
-	})
+	}
+	return processTemplate("versioninfo.json", data)
+}
+
+// processTemplate centralizes template parsing, file creation, and execution.
+func processTemplate(outPath string, data any) error {
+	t, err := template.ParseFiles(outPath + ".tpl")
 	if err != nil {
 		return err
 	}
-	return nil
+	f, err := os.Create(outPath)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	fmt.Printf("Generating %s\n", outPath)
+	return t.Execute(f, data)
 }
