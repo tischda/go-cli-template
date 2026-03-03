@@ -24,7 +24,7 @@
         "FileDescription": "Project description",
         "FileVersion": "",
         "InternalName": "",
-        "LegalCopyright": "© 2025 Daniel TISCHER",
+        "LegalCopyright": "© 2026 Daniel TISCHER",
         "LegalTrademarks": "",
         "OriginalFilename": "{{ .Project }}.exe",
         "PrivateBuild": "",
